@@ -1,0 +1,14 @@
+[core]
+    editor = vim
+
+[init]
+    defaultBranch = main
+
+[pull]
+    rebase = false
+
+[alias]
+    st = status
+    co = checkout
+    br = branch
+    lg = log --oneline --graph --decorate --all

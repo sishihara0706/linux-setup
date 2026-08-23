@@ -1,0 +1,55 @@
+                                                                                                                                                                             
+" バックアップファイルを作らない
+set nobackup
+" スワップファイルを作らない
+set noswapfile
+" 編集中のファイルが変更されたら自動で読み直す
+set autoread
+
+" 入力中のコマンドをステータスに表示する
+set showcmd
+
+" 行番号表示
+set number
+
+" 現在の行を強調表示
+"set cursorcolumn
+
+" ヒープ音を可視化
+"set visualbell
+
+" タブ幅を4に変更
+set tabstop=4
+set shiftwidth=4
+
+set cursorline
+set hlsearch
+set scrolloff=5
+let $BASH_ENV = "~/.bash_aliases"
+" set clipboard=unnamedplus
+
+nnoremap <C-s> :w<CR>   " Ctrl+sでファイルを保存
+nnoremap <C-q> :q<CR>   " Ctrl+qでファイルを閉じる
+nnoremap <C-q> :x<CR>   " Ctrl+xでファイルを保存して閉じる
+nnoremap { [{
+nnoremap } ]}
+
+" カレントディレクトリ以下を自動で検索
+set tags=./tags;,tags
+
+" １．常にステータスラインを表示
+set laststatus=2
+
+" ２．ステータスラインのフォーマットをカスタマイズ
+"    %F … フルパス付きファイル名
+"    %m %r %h %w … [+ Modified][RO][Help][Preview] フラグ
+"    %= … 左右分割ポイント
+"    %l,%c … 現在行・列
+"    %P … ファイル内の位置（％表示）
+set statusline=%F\ %m%r%h%w\ %=Line:%l\,Col:%c\ [%P]
+
+" 前回のカーソル位置に戻る
+autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   execute "normal! g'\"" |
+      \ endif

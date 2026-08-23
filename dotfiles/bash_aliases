@@ -1,0 +1,33 @@
+shopt -s expand_aliases
+#alias ll='ls -l'
+
+# common setting
+alias sp='speedtest-cli'
+alias ga='grep_all'
+alias gah='grep_all_hfile'
+alias gac='grep_all_cfile'
+alias gap='grep_all_pyfile'
+alias mcd='source makecd' 
+
+# manual setting
+alias ue='cd ../'
+alias ueue='cd ../../'
+alias ..='cd ../'
+alias ...='cd ../../'
+alias ....='cd ../../../'
+
+# history setting
+hsearch() { history | grep --color=auto "$1"; } 
+
+# bash setting
+alias rr='rm -r'
+alias ubash='source ~/.bashrc'
+alias ebash='vim ~/.bashrc'
+alias ealias='vim ~/.bashrc.d/aliases.sh'
+alias h='history | tail -60'
+
+alias lsg='ls | grep'                                                                                                                                                         
+alias llg='ll | grep'
+
+# vim setting
+alias vi='vim'
