@@ -83,7 +83,7 @@ git --version
 ## 2. リポジトリをclone
 
 ```bash
-git clone https://github.com/<YOUR_GITHUB_USER>/linux-setup.git
+git clone https://github.com/sishihara0706/linux-setup.git
 cd linux-setup
 ```
 
@@ -363,7 +363,7 @@ source ~/.bashrc
 sudo apt update
 sudo apt install -y git
 
-git clone https://github.com/<YOUR_GITHUB_USER>/linux-setup.git
+git clone https://github.com/sishihara0706/linux-setup.git
 cd linux-setup
 
 chmod +x setup.sh

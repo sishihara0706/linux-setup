@@ -12,3 +12,6 @@
     co = checkout
     br = branch
     lg = log --oneline --graph --decorate --all
+[user]
+	email = s.ishihara0706@gmail.com
+	name = Satoshi Ishihara
