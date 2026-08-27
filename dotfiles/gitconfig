@@ -12,6 +12,7 @@
     co = checkout
     br = branch
     lg = log --oneline --graph --decorate --all
-[user]
-	email = s.ishihara0706@gmail.com
-	name = Satoshi Ishihara
+
+# 名前とメールアドレスは、リポジトリで共有しないローカルファイルに保存する。
+[include]
+    path = ~/.gitconfig.local

@@ -35,6 +35,14 @@ install_packages()
 
     sudo dnf group install -y "Development Tools"
 
+    echo "==> Installing GitHub CLI"
+
+    sudo dnf install -y 'dnf-command(config-manager)'
+    if [[ ! -f /etc/yum.repos.d/gh-cli.repo ]]; then
+        sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+    fi
+    sudo dnf install -y gh
+
     echo "==> Installing fd"
 
     if dnf list --available fd-find >/dev/null 2>&1; then

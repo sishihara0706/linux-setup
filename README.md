@@ -180,6 +180,7 @@ distro/common.sh
 * `.bash_aliases` の設定
 * `.vimrc` の設定
 * `.gitconfig` の設定
+* Gitのユーザー名・メールアドレスの対話設定
 * `.bashrc` から `.bash_aliases` を読み込む設定
 * 既存dotfilesのバックアップ
 * リポジトリ内dotfilesへのシンボリックリンク作成
@@ -256,11 +257,22 @@ dotfiles/gitconfig
 
 共通のGit設定を管理します。
 
-ユーザー名やメールアドレスなど、ユーザー・環境固有の情報は必要に応じて各マシンで設定します。
+ユーザー名やメールアドレスは `setup.sh` の実行中に入力します。入力した値は、Git管理されない `~/.gitconfig.local` に保存されます。既存の値がある場合は初期値として表示されるため、変更しなければ Enter だけで引き継げます。
+
+非対話環境では、環境変数でも指定できます。
 
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "your@example.com"
+GIT_USER_NAME="Your Name" GIT_USER_EMAIL="you@example.com" ./setup.sh
+```
+
+共通の `~/.gitconfig` から、この個人設定ファイルを読み込む構成です。
+
+## GitHub CLI
+
+GitHub CLI (`gh`) もOSに合った方法でインストールします。セットアップ後、次のコマンドでGitHubにログインできます。
+
+```bash
+gh auth login
 ```
 
 ## シンボリックリンク

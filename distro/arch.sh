@@ -30,6 +30,7 @@ install_packages()
         ltrace \
         ripgrep \
         fd \
+        github-cli \
         openssh
 
     echo "==> Enabling SSH"
