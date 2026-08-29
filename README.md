@@ -10,6 +10,7 @@
 
 * elementary OS
 * Ubuntu
+* Raspberry Pi OS
 * Rocky Linux
 * Arch Linux
 
@@ -24,6 +25,7 @@ linux-setup/
 │   ├── common.sh
 │   ├── elementary.sh
 │   ├── ubuntu.sh
+│   ├── raspbian.sh
 │   ├── rocky.sh
 │   └── arch.sh
 ├── dotfiles/
@@ -55,7 +57,7 @@ Gitはこのリポジトリ自体を取得するために必要なので、セ�
 
 ## 1. Gitをインストール
 
-### elementary OS / Ubuntu
+### elementary OS / Ubuntu / Raspberry Pi OS
 
 ```bash
 sudo apt update
@@ -128,6 +130,7 @@ dotfiles設定
 という流れになります。
 
 Rocky Linuxなら `rocky.sh`、Arch Linuxなら `arch.sh` が選択されます。
+Raspberry Pi OS では `ID=raspbian` を判定し、`raspbian.sh` が選択されます。
 
 ## OSごとの処理
 
@@ -148,6 +151,14 @@ distro/ubuntu.sh
 ```
 
 Ubuntu向けの `apt` パッケージをインストールします。
+
+### Raspberry Pi OS
+
+```text
+distro/raspbian.sh
+```
+
+Raspberry Pi OS向けの `apt` パッケージをインストールし、SSHを有効化します。
 
 ### Rocky Linux
 

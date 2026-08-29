@@ -20,6 +20,9 @@ case "${ID:-}" in
     ubuntu)
         source "$SCRIPT_DIR/distro/ubuntu.sh"
         ;;
+    raspbian)
+        source "$SCRIPT_DIR/distro/raspbian.sh"
+        ;;
     rocky)
         source "$SCRIPT_DIR/distro/rocky.sh"
         ;;
