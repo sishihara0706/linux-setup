@@ -20,9 +20,9 @@ install_packages()
         jq \
         unzip \
         zip \
+        rsync \
         build-essential \
-        gcc \
-        g++ \
+        pkg-config \
         clang \
         cmake \
         ninja-build \
@@ -32,7 +32,19 @@ install_packages()
         ltrace \
         ripgrep \
         fd-find \
-        openssh-server
+        shellcheck \
+        python3-pip \
+        python3-venv \
+        netcat-openbsd \
+        nmap \
+        tcpdump \
+        dnsutils \
+        mosquitto-clients \
+        openssh-server \
+        raspi-config \
+        python3-gpiozero \
+        python3-lgpio \
+        i2c-tools
 
     install_gh
 
