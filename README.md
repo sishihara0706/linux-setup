@@ -23,9 +23,10 @@ linux-setup/
 ├── setup.sh
 ├── distro/
 │   ├── common.sh
+│   ├── packages.sh
 │   ├── elementary.sh
 │   ├── ubuntu.sh
-│   ├── raspbian.sh
+│   ├── raspberrypi.sh
 │   ├── rocky.sh
 │   └── arch.sh
 ├── dotfiles/
@@ -130,7 +131,7 @@ dotfiles設定
 という流れになります。
 
 Rocky Linuxなら `rocky.sh`、Arch Linuxなら `arch.sh` が選択されます。
-Raspberry Pi OS では `ID=raspbian` を判定し、`raspbian.sh` が選択されます。
+Raspberry Pi OS では `ID=raspbian` を判定し、`raspberrypi.sh` が選択されます。
 
 ## OSごとの処理
 
@@ -155,10 +156,20 @@ Ubuntu向けの `apt` パッケージをインストールします。
 ### Raspberry Pi OS
 
 ```text
-distro/raspbian.sh
+distro/raspberrypi.sh
 ```
 
 Raspberry Pi OS向けの `apt` パッケージをインストールし、SSHを有効化します。
+Ubuntu向けの処理を再利用し、Raspberry Pi固有のパッケージグループを追加します。
+
+### パッケージグループ
+
+```text
+distro/packages.sh
+```
+
+パッケージは `common`、`development`、`network`、`python`、`raspberrypi` の
+論理グループで管理します。実際のパッケージ名の違いは各OS用スクリプトで吸収します。
 
 ### Rocky Linux
 

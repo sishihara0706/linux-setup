@@ -1,42 +1,52 @@
 #!/usr/bin/env bash
 
+DISTRO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$DISTRO_DIR/packages.sh"
+
+DISTRO_NAME="${DISTRO_NAME:-Ubuntu}"
+
 install_packages()
 {
-    echo "==> Updating Ubuntu"
+    local -a groups
+
+    echo "==> Updating $DISTRO_NAME"
 
     sudo apt update
     sudo apt upgrade -y
 
     echo "==> Installing packages"
 
-    sudo apt install -y \
-        git \
-        curl \
-        wget \
-        vim \
-        tmux \
-        htop \
-        tree \
-        jq \
-        unzip \
-        zip \
-        build-essential \
-        clang \
-        cmake \
-        ninja-build \
-        gdb \
-        valgrind \
-        strace \
-        ltrace \
-        ripgrep \
-        fd-find \
-        openssh-server
+    mapfile -t groups < <(package_groups)
+    install_package_groups "${groups[@]}"
+    sudo apt install -y "${RESOLVED_PACKAGES[@]}" openssh-server
 
     install_gh
 
     echo "==> Enabling SSH"
 
     sudo systemctl enable --now ssh
+}
+
+package_groups()
+{
+    printf '%s\n' common development network python
+}
+
+map_package()
+{
+    map_debian_package "$1"
+}
+
+map_debian_package()
+{
+    case "$1" in
+        fd) MAPPED_PACKAGES=(fd-find) ;;
+        ninja) MAPPED_PACKAGES=(ninja-build) ;;
+        netcat) MAPPED_PACKAGES=(netcat-openbsd) ;;
+        pip) MAPPED_PACKAGES=(python3-pip) ;;
+        venv) MAPPED_PACKAGES=(python3-venv) ;;
+        *) MAPPED_PACKAGES=("$1") ;;
+    esac
 }
 
 install_gh()

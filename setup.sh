@@ -21,7 +21,7 @@ case "${ID:-}" in
         source "$SCRIPT_DIR/distro/ubuntu.sh"
         ;;
     raspbian)
-        source "$SCRIPT_DIR/distro/raspbian.sh"
+        source "$SCRIPT_DIR/distro/raspberrypi.sh"
         ;;
     rocky)
         source "$SCRIPT_DIR/distro/rocky.sh"
