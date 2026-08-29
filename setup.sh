@@ -23,6 +23,14 @@ case "${ID:-}" in
     raspbian)
         source "$SCRIPT_DIR/distro/raspberrypi.sh"
         ;;
+    debian)
+        if [[ -r /proc/device-tree/model ]] &&
+            grep -q '^Raspberry Pi' /proc/device-tree/model; then
+            source "$SCRIPT_DIR/distro/raspberrypi.sh"
+        else
+            source "$SCRIPT_DIR/distro/debian.sh"
+        fi
+        ;;
     rocky)
         source "$SCRIPT_DIR/distro/rocky.sh"
         ;;

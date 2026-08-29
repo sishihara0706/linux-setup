@@ -10,6 +10,7 @@
 
 * elementary OS
 * Ubuntu
+* Debian
 * Raspberry Pi OS
 * Rocky Linux
 * Arch Linux
@@ -26,6 +27,7 @@ linux-setup/
 │   ├── packages.sh
 │   ├── elementary.sh
 │   ├── ubuntu.sh
+│   ├── debian.sh
 │   ├── raspberrypi.sh
 │   ├── rocky.sh
 │   └── arch.sh
@@ -131,7 +133,9 @@ dotfiles設定
 という流れになります。
 
 Rocky Linuxなら `rocky.sh`、Arch Linuxなら `arch.sh` が選択されます。
-Raspberry Pi OS では `ID=raspbian` を判定し、`raspberrypi.sh` が選択されます。
+Raspberry Pi OS では、従来の `ID=raspbian` に加え、`ID=debian` の場合も
+`/proc/device-tree/model` を確認します。Raspberry Piハードウェアであれば
+`raspberrypi.sh`、それ以外のDebian環境では `debian.sh` が選択されます。
 
 ## OSごとの処理
 
@@ -161,6 +165,15 @@ distro/raspberrypi.sh
 
 Raspberry Pi OS向けの `apt` パッケージをインストールし、SSHを有効化します。
 Ubuntu向けの処理を再利用し、Raspberry Pi固有のパッケージグループを追加します。
+
+### Debian
+
+```text
+distro/debian.sh
+```
+
+Debian向けの `apt` パッケージをインストールします。APT系の共通処理として
+Ubuntu向けの実装を再利用します。
 
 ### パッケージグループ
 

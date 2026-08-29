@@ -23,6 +23,7 @@
 setup.sh
   ├── distro/packages.sh       論理グループと共通の解決処理
   ├── distro/ubuntu.sh         APT向けマッピングとインストール
+  ├── distro/debian.sh         Ubuntu向けAPT処理を再利用
   ├── distro/elementary.sh     Ubuntu向け処理を再利用
   ├── distro/raspberrypi.sh    Ubuntu向け処理とPi固有マッピング
   ├── distro/rocky.sh          DNF向けマッピングとインストール
@@ -30,7 +31,7 @@ setup.sh
   └── distro/common.sh         OS共通のdotfiles設定
 ```
 
-`setup.sh` は `/etc/os-release` の `ID` を読み、対応するOS用スクリプトを読み込む。その後、OS側が提供する `install_packages()` と、dotfiles用の `setup_common()` を順番に実行する。
+`setup.sh` は `/etc/os-release` の `ID` を読み、対応するOS用スクリプトを読み込む。`ID=debian` の場合は `/proc/device-tree/model` も確認し、Raspberry PiハードウェアならRaspberry Pi OS用、そうでなければDebian用のスクリプトを選択する。その後、OS側が提供する `install_packages()` と、dotfiles用の `setup_common()` を順番に実行する。
 
 ## 4. 論理パッケージグループ
 
@@ -131,7 +132,7 @@ GitHub CLIとSSHをOS固有の方法で設定
 共通dotfilesを設定
 ```
 
-Ubuntu、elementary OS、Rocky Linux、Arch Linuxは `common development network python` を選択する。Raspberry Pi OSはこれらに `raspberrypi` を追加する。
+Ubuntu、Debian、elementary OS、Rocky Linux、Arch Linuxは `common development network python` を選択する。Raspberry Pi OSはこれらに `raspberrypi` を追加する。
 
 ## 7. Debian系での再利用
 
@@ -142,7 +143,7 @@ Ubuntu、elementary OS、Rocky Linux、Arch Linuxは `common development network
 - GitHub CLIリポジトリの設定
 - SSHサービスの有効化
 
-`distro/elementary.sh` は表示名を設定してUbuntu実装を読み込むだけである。
+`distro/debian.sh` と `distro/elementary.sh` は表示名を設定してUbuntu実装を読み込むだけである。
 
 `distro/raspberrypi.sh` はUbuntu実装を読み込んだ後、選択グループへ `raspberrypi` を追加し、Pi固有パッケージだけを上書きして変換する。それ以外は `map_debian_package()` に委譲する。
 
