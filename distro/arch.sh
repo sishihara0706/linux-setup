@@ -20,7 +20,6 @@ install_packages()
         unzip \
         zip \
         base-devel \
-        gcc \
         clang \
         cmake \
         ninja \

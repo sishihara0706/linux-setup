@@ -21,8 +21,6 @@ install_packages()
         unzip \
         zip \
         build-essential \
-        gcc \
-        g++ \
         clang \
         cmake \
         ninja-build \

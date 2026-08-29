@@ -19,8 +19,6 @@ install_packages()
         jq \
         unzip \
         zip \
-        gcc \
-        gcc-c++ \
         clang \
         cmake \
         ninja-build \
