@@ -1,0 +1,92 @@
+#!/bin/bash
+function main()
+{
+	greppyfile $@ | sed 's/:/ : /g' | awk -F' : ' '{printf "%-40s:%-8d: %s\n", $1, $2, $3}'
+	greppyfile $@ 
+}
+
+function greppyfile()
+{
+	KEY="^def"
+
+	if [ $# -eq 0 ]
+	then
+		FILE="*.py"
+		grep -Hn $KEY $FILE --color=always
+		echo $(pwd)" 内のpythonファイルを検索しました"
+		exit 0
+	elif [ $# -eq 1 ]
+	then
+		if [ "-r" == $1 ]
+		then
+			FILE="*.py"
+			grep -Hnr $KEY ./ --color=always
+			echo $(pwd)" 内のpythonファイルを再帰的に検索しました"
+			exit 0
+		elif [ -d $1 ]
+		then
+			length=${#1}
+			lastchar=${1:length-1:1}
+			if [ "/" != $lastchar ]
+			then
+				$dir=$1/
+			fi
+			FILE="*.py"
+			grep -Hn $KEY $dir$FILE --color=always
+			echo $(pwd)/$dir" 内のpythonファイルを検索しました"
+			exit 0
+		elif [ -f $1 ] && [[ $1 == *".py" ]]
+		then
+			grep -Hn $KEY $1 --color=always
+			echo $1" を検索しました"
+			exit 0
+		elif [ -f $1 ] && [[ $1 != *".py" ]]
+		then
+			echo "pythonファイルを指定してください"
+			exit 1
+		elif [ "-" = ${1:0:1} ]
+		then
+			echo "ファイルかディレクトリを指定してください"	
+			exit 1
+		else
+			echo "すみませんが無視します。"
+			exit 1
+		fi
+	elif [ $# -ge 2 ]
+	then
+		if [ "-r" = $1 ] && [ -d $2 ]
+		then
+			length=${#2}
+			lastchar=${2:length-1:1}
+			if [ "/" != $lastchar ]
+			then
+				$2=$2/
+			fi
+			grep -Hnr $KEY $2 --color=always
+			echo $(pwd)/$2 "内のpythonファイルを再帰的に検索しました"
+			exit 0
+		elif [ -d $1 ]
+		then
+			length=${#1}
+			lastchar=${1:length-1:1}
+			if [ "/" != $lastchar ]
+			then
+				$dir=$1/
+			fi
+			FILE="*.py"
+			grep -Hn $KEY $dir$FILE --color=always
+			echo $(pwd)" 内のpythonファイルを再帰的に検索しました(第二引数以降は無視しました。)"
+			exit 0
+		elif [ -f $1 ] && [[ $1 == *".py" ]]
+		then
+			grep -Hn $KEY $1 --color=always
+			echo $1" を検索しました(第二引数以降は無視しました。)"
+			exit 0
+		else
+			echo "pythonファイルを指定してください"
+			exit 1
+		fi
+	fi
+}
+
+main $@

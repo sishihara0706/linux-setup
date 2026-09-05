@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat <<'CHEATSHEET'
+Bash Shortcut Cheat Sheet
+=========================
+
+Cursor Movement
+- Ctrl+a : Move to beginning of line
+- Ctrl+e : Move to end of line
+- Alt+b  : Move back one word
+- Alt+f  : Move forward one word
+- Ctrl+xx: Toggle between cursor and line start
+
+Editing
+- Ctrl+u : Cut from cursor to beginning of line
+- Ctrl+k : Cut from cursor to end of line
+- Alt+d  : Cut next word
+- Ctrl+w : Cut previous word
+- Ctrl+y : Paste (yank) last cut text
+- Alt+y  : Rotate through kill ring after yank
+- Ctrl+d : Delete character under cursor
+- Ctrl+h : Delete character before cursor (Backspace)
+- Alt+Backspace : Delete previous word
+- Ctrl+t : Transpose characters
+- Alt+t  : Transpose words
+- Ctrl+l : Clear screen
+
+History
+- Ctrl+p : Previous command (same as Up)
+- Ctrl+n : Next command (same as Down)
+- Ctrl+r : Reverse search history
+- Ctrl+s : Forward search history (if enabled)
+- Ctrl+g : Cancel history search
+- !!     : Run previous command
+- !n     : Run command number n (from `history`)
+- !string: Run most recent command starting with string
+- Alt+.  : Insert last argument of previous command
+
+Process / Terminal Control
+- Ctrl+c : Interrupt current foreground process
+- Ctrl+z : Suspend current foreground process
+- fg     : Resume suspended job in foreground
+- bg     : Resume suspended job in background
+- jobs   : List jobs
+- Ctrl+d : Send EOF (often exits shell if line is empty)
+
+Completion
+- Tab    : Auto-complete command/path
+- Tab Tab: Show completion candidates
+
+Notes
+- "Alt" shortcuts may require pressing Esc then key on some terminals.
+- If Ctrl+s freezes terminal, run: stty -ixon
+CHEATSHEET

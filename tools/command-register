@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ $# -lt 2 ]]; then
+  echo "Usage: $(basename "$0") <alias_name> <command>"
+  exit 1
+fi
+
+alias_name="$1"
+shift
+command_value="$*"
+
+if [[ ! "$alias_name" =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "Error: alias_name can contain only letters, numbers, dot, underscore, and hyphen."
+  exit 1
+fi
+
+printf -v escaped_command '%q' "$command_value"
+alias_line="alias ${alias_name}=${escaped_command}"
+
+touch "$HOME/.bash_aliases"
+printf "%s\n" "$alias_line" >> "$HOME/.bash_aliases"
+
+echo "Added: $alias_line"
+echo "Run: source ~/.bash_aliases"

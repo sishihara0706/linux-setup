@@ -110,6 +110,70 @@ chmod +x setup.sh
 
 ## setup.sh の役割
 
+### 任意の ~/tools セットアップ
+
+通常の `./setup.sh` では tools は導入しません。共通設定と一緒に導入する場合:
+
+```bash
+./setup.sh --with-tools
+source ~/.bashrc
+```
+
+既存環境に tools だけを追加する場合:
+
+```bash
+./setup.sh --tools-only
+source ~/.bashrc
+```
+
+`--tools-only` はOS判定・パッケージインストール・Git/Vim設定を実行せず、
+sudoも使用しません。ログインユーザーとして実行してください。
+`--help` でオプションを確認できます。2つのモードは同時指定できません。
+
+以前にクローン済みの場合は、変更が公開された後、既存のクローンで以下を実行します。
+未コミットの変更がある場合は、先にコミットなどで保存してください。
+
+```bash
+git fetch origin
+git switch feature/optional-tools
+git pull --ff-only
+./setup.sh --tools-only
+source ~/.bashrc
+```
+
+mainへマージされた後は `git switch main`、`git pull --ff-only` でも利用できます。
+
+リポジトリの `tools/` を `~/tools/` へファイル単位でコピーし、
+`~/.bash_aliases.tools` を `~/.bash_aliases` から読み込みます。
+`~/tools` はPATHの末尾に一度だけ追加されます。
+
+| 呼び出し | ツール |
+| --- | --- |
+| `ga` / `gah` / `gac` / `gap` | 全ファイル / .h / .c / .py の検索 |
+| `mcd <directory>` | ディレクトリ作成と現在のシェルでの移動 |
+| `bs` | Bashショートカット一覧 |
+| `cr <name> <command>` | ~/.bash_aliases へエイリアス追加 |
+
+同名のエイリアスや関数がすでにあれば、その定義を優先します。
+`crun`、`funcpy`、`vic`、`doll2yen`、`git-track-missing-branches.sh` は
+コマンド名で呼び出せます。PC固有のSSH接続先や作業ディレクトリ用エイリアスは含めません。
+
+既存の `~/tools` 内のファイルと `~/.bash_aliases.tools` は上書きしません。
+再実行時にも手元の編集を保持するため、ツールの更新は必要なファイルを比較して手動で反映してください。
+読み込み行を追記する既存の `.bash_aliases` と `.bashrc` は、
+`<ファイル名>.backup.XXXXXXXX/original` へバックアップします。
+シンボリックリンクの場合はリンクをバックアップし、内容を通常ファイルへコピーして追記します。
+そのため、古いクローンのリンク先ファイルには変更を加えません。
+
+tools単独モードは依存パッケージを導入しません。各ツールを使用する場合は必要に応じて
+`gcc`（crun）、`vim` と `~/_c_template.c`（vicの新規作成）、
+`curl`・`jq`・`bc` と利用可能な為替API設定（doll2yen）、`git`（ブランチ追跡）を用意してください。
+持ち込んだスクリプトの外部サービス動作はこのセットアップの検証対象外です。
+
+導入処理の検証は `bash tests/tools-setup.sh` で実行できます。
+
+### OSの判定
+
 `setup.sh` は `/etc/os-release` を読み取り、現在のLinuxディストリビューションを判定します。
 
 例えば elementary OS では、

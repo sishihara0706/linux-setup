@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [ $# -lt 1 ];then
+	echo "引数に検索ワードを指定して"
+	exit 1
+fi
+
+search_path='./'
+
+if [ $# -ge 1 ];then
+	word="$1"
+	if [ $# -eq 2 ];then
+		search_path="$2"
+	fi
+fi
+
+#echo "$word" "$search_path"
+
+
+find "$search_path" -name "*.h" -type f | xargs grep -i -n "$word" --color=auto

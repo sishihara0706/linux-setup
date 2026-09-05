@@ -1,0 +1,28 @@
+# ~/tools is optional. Preserve existing command search precedence.
+case ":${PATH:-}:" in
+    *":$HOME/tools:"*) ;;
+    *) export PATH="${PATH:+$PATH:}$HOME/tools" ;;
+esac
+
+# Keep aliases/functions already defined by the user.
+if ! alias ga &>/dev/null && ! declare -F ga >/dev/null; then
+    alias ga='"$HOME/tools/grep_all"'
+fi
+if ! alias gah &>/dev/null && ! declare -F gah >/dev/null; then
+    alias gah='"$HOME/tools/grep_all_hfile"'
+fi
+if ! alias gac &>/dev/null && ! declare -F gac >/dev/null; then
+    alias gac='"$HOME/tools/grep_all_cfile"'
+fi
+if ! alias gap &>/dev/null && ! declare -F gap >/dev/null; then
+    alias gap='"$HOME/tools/grep_all_pyfile"'
+fi
+if ! alias mcd &>/dev/null && ! declare -F mcd >/dev/null; then
+    alias mcd='source "$HOME/tools/makecd"'
+fi
+if ! alias bs &>/dev/null && ! declare -F bs >/dev/null; then
+    alias bs='"$HOME/tools/bash-shortcuts"'
+fi
+if ! alias cr &>/dev/null && ! declare -F cr >/dev/null; then
+    alias cr='"$HOME/tools/command-register"'
+fi

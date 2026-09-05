@@ -1,0 +1,42 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "第一引数に.cファイルを指定してくれ"
+	exit 1	
+fi
+
+if [[ $1 == *.c ]]; then
+	sourcefile=$1
+	exefile=${sourcefile:0:-2}.o
+	gcc $sourcefile -o $exefile -lm
+	if [ $? -eq 0 ]; then
+		echo "コンパイルOK"
+		echo "-----------------------------"
+
+		# 引数がないとき
+		if [ $# -eq 1 ];then
+			./${exefile}
+
+		# 引数があるとき
+		elif [ $# -gt 1 ];then
+			shift
+			./${exefile} "$@"
+			exit
+		fi
+
+
+		if [ $? -ne 0 ]; then
+			echo "実行に失敗しました"
+			exit 1
+		else
+			rm ./${1:0:-2}.o
+			exit 0
+		fi
+	else
+		echo "コンパイルに失敗しました。終了します。"
+		exit 1
+	fi
+else
+	echo "第一引数は.cファイルを指定してくれ"
+	exit 1
+fi

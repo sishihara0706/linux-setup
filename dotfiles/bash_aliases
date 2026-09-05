@@ -3,11 +3,6 @@ shopt -s expand_aliases
 
 # common setting
 alias sp='speedtest-cli'
-alias ga='grep_all'
-alias gah='grep_all_hfile'
-alias gac='grep_all_cfile'
-alias gap='grep_all_pyfile'
-alias mcd='source makecd' 
 
 # manual setting
 alias ue='cd ../'
@@ -31,3 +26,6 @@ alias llg='ll | grep'
 
 # vim setting
 alias vi='vim'
+
+# Optional tools (installed by setup.sh --with-tools / --tools-only).
+[ ! -f "$HOME/.bash_aliases.tools" ] || source "$HOME/.bash_aliases.tools"

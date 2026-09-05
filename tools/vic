@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+	echo "第一引数にファイル名を指定してくれ"
+	exit 1
+fi
+
+if [[ $1 != *.c ]]; then
+	echo "第一引数には.cファイルを指定してくれ"
+	exit 1
+fi
+
+dir=$(dirname "$1")
+filename=$(basename "$1")
+
+ls $dir | grep "$filename" > /dev/null
+if [ $? -ne 0 ];then
+	echo "ファイル:$1がないので新しく作ります"
+	cp ~/_c_template.c ./$1
+	vim +7 $1
+else
+	vim $1
+fi
+

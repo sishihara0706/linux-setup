@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# 引数としてドルの金額を受け取る
+AMOUNT_USD=$1
+
+# APIから為替レートを取得し、日本円に変換する
+RATE=$(curl -s "https://api.exchangeratesapi.io/latest?base=USD&symbols=JPY" | jq -r '.rates.JPY')
+echo $RATE
+CONVERTED_AMOUNT=$(echo "scale=2; $AMOUNT_USD * $RATE" | bc)
+
+# 結果を表示する
+echo "$AMOUNT_USD USD は $CONVERTED_AMOUNT 円です"
+
+

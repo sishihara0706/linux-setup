@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -ne 1 ];then
+	echo "please one argument."
+	return 1
+fi
+
+mkdir -p -- "$1" && cd -- "$1"
