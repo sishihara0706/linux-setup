@@ -13,6 +13,7 @@
 * Debian
 * Raspberry Pi OS
 * Rocky Linux
+* Fedora
 * Arch Linux
 
 `setup.sh` が `/etc/os-release` を読み取り、実行中のOSを判定して対応するセットアップスクリプトを呼び出します。
@@ -30,6 +31,7 @@ linux-setup/
 │   ├── debian.sh
 │   ├── raspberrypi.sh
 │   ├── rocky.sh
+│   ├── fedora.sh
 │   └── arch.sh
 ├── dotfiles/
 │   ├── bash_aliases
@@ -67,7 +69,7 @@ sudo apt update
 sudo apt install -y git
 ```
 
-### Rocky Linux
+### Rocky Linux / Fedora
 
 ```bash
 sudo dnf install -y git
@@ -196,7 +198,7 @@ dotfiles設定
 
 という流れになります。
 
-Rocky Linuxなら `rocky.sh`、Arch Linuxなら `arch.sh` が選択されます。
+Rocky Linuxなら `rocky.sh`、Fedoraなら `fedora.sh`、Arch Linuxなら `arch.sh` が選択されます。
 Raspberry Pi OS では、従来の `ID=raspbian` に加え、`ID=debian` の場合も
 `/proc/device-tree/model` を確認します。Raspberry Piハードウェアであれば
 `raspberrypi.sh`、それ以外のDebian環境では `debian.sh` が選択されます。
@@ -255,6 +257,14 @@ distro/rocky.sh
 ```
 
 `dnf` を使用して、Rocky Linux向けのパッケージや開発ツールをインストールします。
+
+### Fedora
+
+```text
+distro/fedora.sh
+```
+
+`dnf` を使用して、Fedora向けのパッケージや開発ツールをインストールします。
 
 ### Arch Linux
 
@@ -487,10 +497,10 @@ chmod +x setup.sh
 
 ## 新しいディストリビューションを追加する場合
 
-例えばFedoraを追加する場合、
+例えばopenSUSEを追加する場合、
 
 ```text
-distro/fedora.sh
+distro/opensuse.sh
 ```
 
 を作成します。
@@ -507,6 +517,9 @@ case "${ID:-}" in
         ;;
     rocky)
         source "$SCRIPT_DIR/distro/rocky.sh"
+        ;;
+    opensuse*)
+        source "$SCRIPT_DIR/distro/opensuse.sh"
         ;;
     arch)
         source "$SCRIPT_DIR/distro/arch.sh"

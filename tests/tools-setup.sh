@@ -66,7 +66,7 @@ mkdir -p "$fixture/distro" "$full_home"
 cp "$repo_dir/setup.sh" "$fixture/"
 cp -R "$repo_dir/dotfiles" "$repo_dir/tools" "$fixture/"
 cp "$repo_dir/distro/common.sh" "$repo_dir/distro/tools.sh" "$fixture/distro/"
-for distro in elementary ubuntu raspberrypi debian rocky arch; do
+for distro in elementary ubuntu raspberrypi debian rocky fedora arch; do
     printf 'install_packages() { touch "$HOME/packages-called"; }\n' > "$fixture/distro/$distro.sh"
 done
 env HOME="$full_home" bash "$fixture/setup.sh" </dev/null >/dev/null

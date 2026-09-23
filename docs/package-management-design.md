@@ -27,6 +27,7 @@ setup.sh
   ├── distro/elementary.sh     Ubuntu向け処理を再利用
   ├── distro/raspberrypi.sh    Ubuntu向け処理とPi固有マッピング
   ├── distro/rocky.sh          DNF向けマッピングとインストール
+  ├── distro/fedora.sh         Fedora向けDNFマッピングとインストール
   ├── distro/arch.sh           pacman向けマッピングとインストール
   └── distro/common.sh         OS共通のdotfiles設定
 ```
@@ -51,7 +52,7 @@ C/C++を中心とするビルド、デバッグ、静的検査に必要なツー
 build-essential clang cmake ninja pkg-config gdb valgrind strace ltrace shellcheck
 ```
 
-`build-essential` は論理名であり、Ubuntu系では同名パッケージ、Rocky Linuxでは `Development Tools` グループ、Arch Linuxでは `base-devel` に対応する。
+`build-essential` は論理名であり、Ubuntu系では同名パッケージ、Rocky Linuxでは `Development Tools` グループ、Fedoraでは `development-tools` グループ、Arch Linuxでは `base-devel` に対応する。
 
 ### network
 
@@ -94,21 +95,21 @@ raspi-config i2c-tools gpiozero lgpio gpiod mqtt-client
 
 代表的な変換は次のとおり。
 
-| 論理名 | Ubuntu / elementary | Raspberry Pi OS | Rocky Linux | Arch Linux |
-| --- | --- | --- | --- | --- |
-| `build-essential` | `build-essential` | `build-essential` | `Development Tools` | `base-devel` |
-| `fd` | `fd-find` | `fd-find` | `fd-find` または `fd` | `fd` |
-| `ninja` | `ninja-build` | `ninja-build` | `ninja-build` | `ninja` |
-| `pkg-config` | `pkg-config` | `pkg-config` | `pkgconf-pkg-config` | `pkgconf` |
-| `netcat` | `netcat-openbsd` | `netcat-openbsd` | `nmap-ncat` | `openbsd-netcat` |
-| `dnsutils` | `dnsutils` | `dnsutils` | `bind-utils` | `bind` |
-| `python3` | `python3` | `python3` | `python3` | `python` |
-| `pip` | `python3-pip` | `python3-pip` | `python3-pip` | `python-pip` |
-| `venv` | `python3-venv` | `python3-venv` | `python3` | `python` |
-| `pipx` | `pipx` | `pipx` | `pipx` | `python-pipx` |
-| `gpiozero` | 対象外 | `python3-gpiozero` | 対象外 | 対象外 |
-| `lgpio` | 対象外 | `python3-lgpio` | 対象外 | 対象外 |
-| `mqtt-client` | 対象外 | `mosquitto-clients` | 対象外 | 対象外 |
+| 論理名 | Ubuntu / elementary | Raspberry Pi OS | Rocky Linux | Fedora | Arch Linux |
+| --- | --- | --- | --- | --- | --- |
+| `build-essential` | `build-essential` | `build-essential` | `Development Tools` | `development-tools` | `base-devel` |
+| `fd` | `fd-find` | `fd-find` | `fd-find` または `fd` | `fd-find` | `fd` |
+| `ninja` | `ninja-build` | `ninja-build` | `ninja-build` | `ninja-build` | `ninja` |
+| `pkg-config` | `pkg-config` | `pkg-config` | `pkgconf-pkg-config` | `pkgconf-pkg-config` | `pkgconf` |
+| `netcat` | `netcat-openbsd` | `netcat-openbsd` | `nmap-ncat` | `nmap-ncat` | `openbsd-netcat` |
+| `dnsutils` | `dnsutils` | `dnsutils` | `bind-utils` | `bind-utils` | `bind` |
+| `python3` | `python3` | `python3` | `python3` | `python3` | `python` |
+| `pip` | `python3-pip` | `python3-pip` | `python3-pip` | `python3-pip` | `python-pip` |
+| `venv` | `python3-venv` | `python3-venv` | `python3` | `python3` | `python` |
+| `pipx` | `pipx` | `pipx` | `pipx` | `pipx` | `python-pipx` |
+| `gpiozero` | 対象外 | `python3-gpiozero` | 対象外 | 対象外 | 対象外 |
+| `lgpio` | 対象外 | `python3-lgpio` | 対象外 | 対象外 | 対象外 |
+| `mqtt-client` | 対象外 | `mosquitto-clients` | 対象外 | 対象外 | 対象外 |
 
 Rocky Linuxの `fd` は利用可能なパッケージを実行時に確認し、`fd-find`、`fd` の順で選択する。どちらも見つからない場合は警告を表示し、ほかのパッケージの解決を継続する。
 
@@ -132,7 +133,7 @@ GitHub CLIとSSHをOS固有の方法で設定
 共通dotfilesを設定
 ```
 
-Ubuntu、Debian、elementary OS、Rocky Linux、Arch Linuxは `common development network python` を選択する。Raspberry Pi OSはこれらに `raspberrypi` を追加する。
+Ubuntu、Debian、elementary OS、Rocky Linux、Fedora、Arch Linuxは `common development network python` を選択する。Raspberry Pi OSはこれらに `raspberrypi` を追加する。
 
 ## 7. Debian系での再利用
 
@@ -153,6 +154,7 @@ Ubuntu、Debian、elementary OS、Rocky Linux、Arch Linuxは `common developmen
 
 - Ubuntu系: GitHub CLI公式APTリポジトリの設定
 - Rocky Linux: EPELとGitHub CLIリポジトリの設定、`Development Tools` の導入
+- Fedora: Fedora公式リポジトリからGitHub CLIと `development-tools` グループを導入
 - Arch Linux: `github-cli` と `openssh` の導入
 - 全OS: SSHサービスの有効化
 

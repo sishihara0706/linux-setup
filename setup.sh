@@ -61,6 +61,9 @@ case "${ID:-}" in
     rocky)
         source "$SCRIPT_DIR/distro/rocky.sh"
         ;;
+    fedora)
+        source "$SCRIPT_DIR/distro/fedora.sh"
+        ;;
     arch)
         source "$SCRIPT_DIR/distro/arch.sh"
         ;;
