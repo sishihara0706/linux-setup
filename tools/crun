@@ -8,7 +8,7 @@ fi
 if [[ $1 == *.c ]]; then
 	sourcefile=$1
 	exefile=${sourcefile:0:-2}.o
-	gcc $sourcefile -o $exefile -lm
+	gcc -Wall -Wextra -O2 $sourcefile -o $exefile -lm
 	if [ $? -eq 0 ]; then
 		echo "コンパイルOK"
 		echo "-----------------------------"
@@ -23,7 +23,6 @@ if [[ $1 == *.c ]]; then
 			./${exefile} "$@"
 			exit
 		fi
-
 
 		if [ $? -ne 0 ]; then
 			echo "実行に失敗しました"
